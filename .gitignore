@@ -1,0 +1,109 @@
+//Universidad Técnica del Norte
+//Deber 02
+//Edwin Lema Vega
+//Sistemas Microprocesados
+// 31 de Octubre del 2016.
+///Inicialización de variables / pines.
+int led_1=8;
+int led_2=9;
+int led_3=10;
+int led_4=11;
+int led_5=12;
+int led_6=13;
+int sw_1=7;
+int sw_2=6;
+int pulsador=5;
+int leds1[3]={led_1,led_3,led_5};
+int leds2[3]={led_2,led_4,led_6};
+/// inicializacion de contadores.
+int contador=0;
+int cont2=0;
+int i=0;
+int j=0;
+/// inicialización variables aleatorias.
+int dato=0;
+int dato2=0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(led_1,OUTPUT);    //pin 8 salida.
+  pinMode(led_2,OUTPUT);    //pin 9 salida.
+  pinMode(led_3,OUTPUT);    //pin 10 salida.
+  pinMode(led_4,OUTPUT);    //pin 11 salida.
+  pinMode(led_5,OUTPUT);    //pin 12 salida.
+  pinMode(led_6,OUTPUT);    //pin 13 salida.
+  pinMode(sw_1,INPUT);      //pin 7 entrada.
+  pinMode(sw_2,INPUT);      //pin 6 entrada.
+  pinMode(pulsador,INPUT);  //pin 5 entrada.
+}
+
+void loop() {
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+    // Se encienden los leds pares (2,4,6)ascendentemente y se apagan de forma descendente (6,4,2).
+  if (digitalRead(sw_1)==HIGH&&digitalRead(sw_2)==LOW)      //Si tenemos el swith_1 en "1" y el  swith_2 en  "0" las luces se encenderan de manera explicada anteriormente.
+  {
+    for(;contador<6;contador=contador+1){                  // Ciclo contador ascendente
+        digitalWrite(leds2[contador],HIGH);                // encienden los leds del vector que contiene los leds pares de forma ascendente.
+        delay (200);                                       // retardo
+        }
+     for(;contador>=0;contador=contador-1){               // Ciclo contador descendente
+        digitalWrite(leds2[contador],LOW);                // apaga los leds del vetor que contiene los leds pares de forma descendente.
+        delay(200);                                       // retardo
+        }                                            
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+else if (digitalRead(sw_1)==LOW&&digitalRead(sw_2)==HIGH){// Si tenemos el swith_1 en "0" y el swith_2 en "1"  se encenderan aleatoriamente los leds pares (2,4,6).
+    delay (200);                                          //retardo
+     for(;i<5;i=i+1){                                     // ciclo que enciende las luces de forma secuencial
+      dato=random(5);                                     // condicion aleatoria de 5
+      digitalWrite(leds2[dato],HIGH);                     // enciende los leds del vector de forma aleatoria.
+      delay(400);                                         //retardo
+      digitalWrite(leds2[dato],LOW);                      // apaga los leds del vector de forma aleatoria.
+      delay(400);                                         // retardo
+      i=0;
+      }
+   }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+else if (digitalRead(sw_1)==HIGH&&digitalRead(sw_2)==HIGH)// Si tenemos el switch_1 en "1" y el swith_2 en "1" se enciende ascendentemente los impares(1,3,5) y se apagan descendentemente (5,3,1)
+  {
+    for(;contador<6;contador=contador+1){              //ciclo contador ascendente
+        digitalWrite(leds1[contador],HIGH);            // enciende los leds del vector que contiene los impares de forma ascendente.
+        delay (200);                                   // retardo
+        }
+     for(;contador>=0;contador=contador-1){           // Ciclo contador descendente
+        digitalWrite(leds1[contador],LOW);            // enciende los apaga los leds del vector de forma descendente
+        delay(200);                                   // retardo                                    
+    }
+  }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+else if (digitalRead(sw_1)==LOW&&digitalRead(sw_2)==LOW){  // si el switch_1 esta en "0" y el swith_2 esa en "0", se enciende aleatoriamente dos leds a la vez (6,1)(5,2)(4,3).
+   for(;j<8;j+1){                                          // Ciclo contador
+   dato2=random(3,8);                                      // condicion aleatoria de 3 a 8
+   { 
+      if(dato2==3){                                        // condicion si el dato toma un valor de 3
+      digitalWrite(led_1,HIGH);digitalWrite(led_6,HIGH);   // enciende el par de leds (6,1)
+      delay(400);}                                         // retardo
+      if(dato2==3){                                        // condicion si el dato toma un valor de 3
+      digitalWrite(led_1,LOW);digitalWrite(led_6,LOW);     // apaga el par de leds (6,1)
+      delay(400);}                                         //retardo
+      if(dato2==4){                                        // condicion si el dato toma un valor de 4
+      digitalWrite(led_2,HIGH);digitalWrite(led_5,HIGH);   // enciende el par de leds (5,2)
+      delay(400);}                                         //retardo
+      if (dato2==4){                                       // condicion si el dato toma un valor de 4
+      digitalWrite(led_2,LOW);digitalWrite(led_5,LOW);     // apaga el par de leds(5,2)
+      delay(400);}                                         //retardo
+      if(dato2==5){                                        //condicion si el dato toma un valor de 5 
+      digitalWrite(led_3,HIGH);digitalWrite(led_4,HIGH);   //enciende el par de leds (4,3)
+      delay(400);}                                         //retardo 
+      if(dato2==5){                                        //condicion si el dato toma un valor de 5
+      digitalWrite(led_3,LOW);digitalWrite(led_4,LOW);     //apaga el par de leds (4,3)
+      delay(400);}                                         //retardo 
+      }
+      j=0;
+   }
+   delay (2000);                                          // tiempo de espera para la siguiente secuencia
+ }
+}
